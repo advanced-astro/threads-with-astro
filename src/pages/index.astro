@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../layouts/base.astro'
 import SortBar from '../components/sortBar.astro'
-import ThreadCard from '../components/threadCard.astro'
-import { modelSubreddit } from '../model/subreddit'
+/* import ThreadCard from '../components/threadCard.astro'
+import { modelSubreddit } from '../model/subreddit' */
+import ThreadListWrapper from '../components/react/threadList'
 
 const token = import.meta.env.REDDIT_TOKEN
-const response = await fetch('https://oauth.reddit.com/r/DotA2/hot', {
+const url = Astro.url
+/* const response = await fetch('https://oauth.reddit.com/r/DotA2/hot', {
     headers: {
         Authorization: `bearer ${token}`,
     },
 })
 const data = await response.json()
-const treads = data.data.children.map((thread) => modelSubreddit(thread))
+const treads = data.data.children.map((thread) => modelSubreddit(thread)) */
 ---
 
 <BaseLayout>
@@ -20,7 +22,8 @@ const treads = data.data.children.map((thread) => modelSubreddit(thread))
             <SortBar />
         </div>
         <div class="flex flex-col">
-            {treads.map((thread) => <ThreadCard {...thread} />)}
+            <ThreadListWrapper token={token} url={url} client:load />
+            {/* treads.map((thread) => <ThreadCard {...thread} />) */}
         </div>
     </div>
 </BaseLayout>

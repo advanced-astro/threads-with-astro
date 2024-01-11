@@ -3,16 +3,17 @@ import { fromUnixTime, format } from 'date-fns'
 import { QueryClientProvider, useQuery } from '@tanstack/react-query'
 
 import { queryClient } from './queryClient'
+import ThreadCard from './threadCard'
 
-export default function ThreadListWrapper({ token }) {
+export default function ThreadListWrapper({ token, url }) {
     return (
         <QueryClientProvider client={queryClient}>
-            <ThreadList token={token} />
+            <ThreadList token={token} url={url} />
         </QueryClientProvider>
     )
 }
 
-export function ThreadList({ token }) {
+export function ThreadList({ token, url }) {
     const { isPending, error, data, isFetching } = useQuery({
         queryKey: ['reddit'],
         queryFn: () =>
@@ -25,6 +26,8 @@ export function ThreadList({ token }) {
                 .then((res) => res.data),
         select: (res) =>
             res.data.children.map((thread) => ({
+                id: thread.data.id,
+                thread: thread.data.subreddit,
                 title: thread.data.title,
                 postedBy: thread.data.author,
                 timePost: format(
@@ -42,7 +45,9 @@ export function ThreadList({ token }) {
 
     return (
         <>
-            <div>ThreadList</div>
+            {data.map((item) => (
+                <ThreadCard key={item.id} url={url} {...item} />
+            ))}
         </>
     )
 }
