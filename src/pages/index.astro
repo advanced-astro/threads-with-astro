@@ -1,16 +1,31 @@
 ---
-
+import BaseLayout from '../layouts/base.astro'
+import SortBar from '../components/sortBar.astro'
+import ThreadCard from '../components/threadCard.astro'
+import ThreadList from '../components/threadList'
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+    <div class="container mx-auto">
+        <div>
+            <SortBar />
+        </div>
+        <div class="flex flex-col">
+            <ThreadList />
+            <ThreadCard
+                title="Gorgc dropped 50+ communication score without talking"
+                postedBy="u/invokerzzv"
+                voteCount="14"
+                timePost="9 hours ago"
+                commentCount="491"
+            />
+            <ThreadCard
+                title="Gorgc dropped 50+ communication score without talking"
+                postedBy="u/invokerzzv"
+                voteCount="14"
+                timePost="9 hours ago"
+                commentCount="491"
+            />
+        </div>
+    </div>
+</BaseLayout>
