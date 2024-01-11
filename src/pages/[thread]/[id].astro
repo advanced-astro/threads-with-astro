@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../../layouts/base.astro'
+const { thread, id } = Astro.params;
+---
+
+<BaseLayout>
+    <div class="container mx-auto">
+        <div class="flex flex-col">
+        <span>{thread}</span>
+        <span>{id}</span>
+        </div>
+    </div>
+</BaseLayout>
