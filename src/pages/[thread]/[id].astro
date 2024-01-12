@@ -1,13 +1,18 @@
 ---
 import BaseLayout from '../../layouts/base.astro'
-const { thread, id } = Astro.params;
+import ThreadDetailWrapper from '../../components/react/threadDetail'
+
+const token = import.meta.env.REDDIT_TOKEN
+const { thread, id } = Astro.params
 ---
 
 <BaseLayout>
     <div class="container mx-auto">
-        <div class="flex flex-col">
-        <span>{thread}</span>
-        <span>{id}</span>
-        </div>
+        <ThreadDetailWrapper
+            token={token}
+            thread={thread}
+            id={id}
+            client:load
+        />
     </div>
 </BaseLayout>
